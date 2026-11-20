@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دعوة خطوبة روان وعبدالظاهر</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@400;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            champagne: {
+              50: '#FDFCF7',
+              100: '#F7F1E8',
+              200: '#EFE2D1',
+              300: '#E2CDB3',
+              400: '#D1AF8A',
+              500: '#C5A059',
+              600: '#A7803F',
+              700: '#84622B',
+            },
+            rosewood: '#3A302C',
+            dustyrose: '#D8A7B1',
+            softcream: '#FFFDF9',
+          },
+          fontFamily: {
+            amiri: ['Amiri', 'serif'],
+            tajawal: ['Tajawal', 'sans-serif'],
+            cormorant: ['Cormorant Garamond', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background-color: #F7F1E8;
+      color: #3A302C;
+      font-family: 'Tajawal', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Lace Background Pattern */
+    .lace-pattern {
+      background-color: #F7F1E8;
+      background-image: radial-gradient(rgba(197, 160, 89, 0.25) 0.75px, transparent 0.75px), radial-gradient(rgba(197, 160, 89, 0.25) 0.75px, #F7F1E8 0.75px);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+    }
+
+    /* Golden Metallic Shimmer */
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #A7803F 0%, #C5A059 40%, #E5C58A 70%, #84622B 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* 3D Envelope Transition Styling */
+    .envelope-wrapper {
+      perspective: 1000px;
+    }
+    .envelope-flap {
+      transform-origin: top center;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .envelope-open .envelope-flap {
+      transform: rotateX(180deg);
+    }
+    
+    /* Wax Seal Animation */
+    .wax-seal {
+      box-shadow: 0 10px 25px -5px rgba(132, 98, 43, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+      transition: all 0.3s ease;
+    }
+    .wax-seal:hover {
+      transform: scale(1.06);
+      box-shadow: 0 15px 30px -5px rgba(132, 98, 43, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Canvas Scratch Card Holder */
+    .scratch-container {
+      position: relative;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Floating Petals / Hearts Overlay */
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    .petal {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99;
+      animation: floatUp 6s linear infinite;
+    }
+  </style>
+</head>
+<body class="lace-pattern antialiased">
+
+  <!-- Background Audio (Umm Kulthum - Ya Rab Tefdal Halawat Salam) -->
+  <audio id="bgMusic" preload="auto" loop playsinline>
+    <source src="https://archive.org/download/UmmKulthum-YaRabTefdalHalawat/Umm%20Kulthum%20-%20Ya%20Rab%20Tefdal%20Halawat%20Salam%20Awel%20Leqa.mp3" type="audio/mpeg">
+    <source src="https://ia800501.us.archive.org/12/items/UmmKulthum-YaRabTefdalHalawat/Umm%20Kulthum%20-%20Ya%20Rab%20Tefdal%20Halawat%20Salam%20Awel%20Leqa.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- ========================================== -->
+  <!-- DOWNLOAD BAR (HIDDEN WHEN SAVED)           -->
+  <!-- ========================================== -->
+  <div id="helperBar" class="sticky top-0 z-50 bg-rosewood/95 backdrop-blur text-white py-2.5 px-4 shadow-lg flex flex-wrap items-center justify-between gap-2">
+    <div class="flex items-center gap-2 text-xs md:text-sm">
+      <i class="fa-solid fa-wand-magic-sparkles text-champagne-400"></i>
+      <span>نزّل الملف للاستضافة الدائمة المجانية (Netlify / GitHub Pages)</span>
+    </div>
+    <button id="downloadHtmlBtn" type="button" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-1.5 rounded-full shadow transition-all text-xs md:text-sm flex items-center gap-2 shrink-0">
+      <i class="fa-solid fa-file-arrow-down"></i>
+      <span>تنزيل ملف الدعوة</span>
+    </button>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 1. WAX SEAL ENVELOPE OVERLAY               -->
+  <!-- ========================================== -->
+  <div id="envelopeScreen" class="fixed inset-0 z-40 flex flex-col items-center justify-center lace-pattern transition-opacity duration-1000 px-4">
+    <div class="envelope-wrapper w-full max-w-md mx-auto">
+      <div id="envelopeBox" class="relative bg-softcream border-2 border-champagne-300 rounded-2xl shadow-2xl overflow-hidden p-8 text-center">
+        <!-- Decorative Top Flap -->
+        <div class="envelope-flap absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-champagne-200/90 to-champagne-100/40 border-b border-champagne-300 pointer-events-none" style="clip-path: polygon(0 0, 100% 0, 50% 100%);"></div>
+        
+        <div class="relative z-10 pt-10 pb-4 flex flex-col items-center">
+          <p class="font-amiri text-xl text-champagne-700 tracking-wide mb-2">دعوة خاصة لحضور حفل خطوبة</p>
+          <h2 class="font-amiri text-3xl md:text-4xl font-bold gold-gradient-text mb-6">عبدالظاهر &amp; روان</h2>
+          
+          <!-- Interactive Wax Seal Button -->
+          <button id="openEnvelopeBtn" type="button" aria-label="افتح الدعوة" class="wax-seal w-24 h-24 rounded-full bg-gradient-to-br from-champagne-500 via-champagne-600 to-champagne-700 border-4 border-champagne-200 flex flex-col items-center justify-center text-white cursor-pointer group">
+            <i class="fa-solid fa-heart text-2xl mb-1 group-hover:scale-110 transition-transform"></i>
+            <span class="font-amiri text-xs tracking-wider">افتح الدعوة</span>
+          </button>
+
+          <p class="mt-6 text-xs text-rosewood/70 flex items-center gap-1.5">
+            <i class="fa-solid fa-volume-high text-champagne-600"></i>
+            <span>اضغط على الختم الشمعي لفتح البطاقة وتشغيل الموسيقى</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 2. MAIN INTERACTIVE INVITATION             -->
+  <!-- ========================================== -->
+  <main id="mainInvitation" class="hidden opacity-0 transition-opacity duration-1000 max-w-2xl mx-auto px-4 py-8 md:py-12 space-y-8">
+
+    <!-- Main Luxury Card -->
+    <section class="bg-softcream border-4 border-double border-champagne-400 rounded-3xl p-6 md:p-12 shadow-2xl text-center relative overflow-hidden space-y-6">
+      
+      <!-- Decorative Floral SVG Corner Ornaments -->
+      <div class="absolute top-0 right-0 w-24 h-24 text-champagne-400/40 pointer-events-none transform translate-x-3 -translate-y-3">
+        <svg fill="currentColor" viewBox="0 0 100 100"><path d="M0 0 Q50 0 50 50 Q0 50 0 0 Z M20 0 Q60 10 60 60 Q10 60 0 20 Z"/></svg>
+      </div>
+      <div class="absolute top-0 left-0 w-24 h-24 text-champagne-400/40 pointer-events-none transform -translate-x-3 -translate-y-3 -rotate-90">
+        <svg fill="currentColor" viewBox="0 0 100 100"><path d="M0 0 Q50 0 50 50 Q0 50 0 0 Z M20 0 Q60 10 60 60 Q10 60 0 20 Z"/></svg>
+      </div>
+      <div class="absolute bottom-0 left-0 w-24 h-24 text-champagne-400/40 pointer-events-none transform -translate-x-3 translate-y-3 rotate-180">
+        <svg fill="currentColor" viewBox="0 0 100 100"><path d="M0 0 Q50 0 50 50 Q0 50 0 0 Z M20 0 Q60 10 60 60 Q10 60 0 20 Z"/></svg>
+      </div>
+      <div class="absolute bottom-0 right-0 w-24 h-24 text-champagne-400/40 pointer-events-none transform translate-x-3 translate-y-3 rotate-90">
+        <svg fill="currentColor" viewBox="0 0 100 100"><path d="M0 0 Q50 0 50 50 Q0 50 0 0 Z M20 0 Q60 10 60 60 Q10 60 0 20 Z"/></svg>
+      </div>
+
+      <!-- Basmala -->
+      <div class="font-amiri text-2xl md:text-3xl text-champagne-700 pt-2">
+        بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ
+      </div>
+
+      <!-- Quranic Verse Box -->
+      <div class="px-4 py-4 border-y border-champagne-300/70 bg-champagne-50/70 rounded-2xl max-w-xl mx-auto">
+        <p id="quranVerseText" class="font-amiri text-lg md:text-xl leading-loose text-rosewood">
+          "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً"
+        </p>
+        <span class="block text-xs font-tajawal text-champagne-600 mt-1">[ سورة الروم: 21 ]</span>
+      </div>
+
+      <!-- Greeting & Event Type -->
+      <div class="space-y-1">
+        <p id="familiesText" class="text-base md:text-lg text-rosewood/85 font-tajawal">
+          نتشرف بدعوتكم
+        </p>
+        <p class="text-sm md:text-base text-champagne-700 font-bold tracking-wide">
+          لحضور حفل خطوبة
+        </p>
+      </div>
+
+      <!-- Couple Names Header -->
+      <div class="flex flex-row items-center justify-center gap-4 py-2">
+        <h1 id="groomNameText" class="font-amiri text-4xl md:text-6xl font-bold gold-gradient-text">عبدالظاهر</h1>
+        <span class="font-cormorant italic text-3xl md:text-5xl gold-gradient-text font-bold px-1">&amp;</span>
+        <h1 id="brideNameText" class="font-amiri text-4xl md:text-6xl font-bold gold-gradient-text">روان</h1>
+      </div>
+
+      <p class="text-sm md:text-base text-rosewood/90 leading-relaxed max-w-md mx-auto">
+        تكتمل سعادتنا ويطيب أُنسنا بحضوركم ومشاركتكم لنا أجمل لحظات العمر، ونرجو من الله أن يبارك لنا ولكم.
+      </p>
+
+      <div class="w-32 h-0.5 bg-gradient-to-r from-transparent via-champagne-500 to-transparent mx-auto"></div>
+
+      <!-- ========================================== -->
+      <!-- 3. INTERACTIVE SCRATCH CARDS FOR THE DATE  -->
+      <!-- ========================================== -->
+      <div class="space-y-3 pt-2">
+        <div class="text-champagne-700 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-wand-sparkles"></i>
+          <span>امسح الدوائر الذهبية لكشف موعد الحفل</span>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3 max-w-md mx-auto">
+          <!-- Day Card -->
+          <div class="scratch-container h-24 rounded-2xl bg-champagne-50 border-2 border-champagne-300 flex flex-col items-center justify-center overflow-hidden shadow-inner">
+            <span class="text-[11px] text-champagne-600 font-bold">اليوم</span>
+            <span id="targetDay" class="font-amiri text-2xl md:text-3xl font-bold text-rosewood">24</span>
+            <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-pointer touch-none"></canvas>
+          </div>
+          <!-- Month Card -->
+          <div class="scratch-container h-24 rounded-2xl bg-champagne-50 border-2 border-champagne-300 flex flex-col items-center justify-center overflow-hidden shadow-inner">
+            <span class="text-[11px] text-champagne-600 font-bold">الشهر</span>
+            <span id="targetMonth" class="font-amiri text-lg md:text-xl font-bold text-rosewood">نوفمبر</span>
+            <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-pointer touch-none"></canvas>
+          </div>
+          <!-- Year Card -->
+          <div class="scratch-container h-24 rounded-2xl bg-champagne-50 border-2 border-champagne-300 flex flex-col items-center justify-center overflow-hidden shadow-inner">
+            <span class="text-[11px] text-champagne-600 font-bold">السنة</span>
+            <span id="targetYear" class="font-amiri text-2xl md:text-3xl font-bold text-rosewood">2026</span>
+            <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-pointer touch-none"></canvas>
+          </div>
+        </div>
+
+        <div class="pt-1 flex flex-wrap items-center justify-center gap-3">
+          <div class="inline-flex items-center gap-1.5 text-sm font-semibold text-champagne-700 bg-champagne-100/80 px-4 py-1.5 rounded-full">
+            <i class="fa-solid fa-clock"></i>
+            <span id="displayTimeText">الثلاثاء، الساعة 7:00 مساءً</span>
+          </div>
+          <button id="revealAllBtn" type="button" class="text-xs text-champagne-700 underline hover:text-rosewood">
+            كشف التاريخ فوراً
+          </button>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 4. LIVE COUNTDOWN TIMER                    -->
+      <!-- ========================================== -->
+      <div class="bg-champagne-50/90 border border-champagne-300 rounded-2xl p-4 max-w-md mx-auto">
+        <p class="text-xs font-bold text-champagne-700 mb-3">العد التنازلي للحظة السعيدة</p>
+        <div class="grid grid-cols-4 gap-2 text-center">
+          <div class="bg-softcream border border-champagne-200 rounded-xl p-2 shadow-sm">
+            <div id="cd-days" class="font-amiri text-2xl md:text-3xl font-bold text-rosewood">00</div>
+            <div class="text-[11px] text-champagne-700">يوم</div>
+          </div>
+          <div class="bg-softcream border border-champagne-200 rounded-xl p-2 shadow-sm">
+            <div id="cd-hours" class="font-amiri text-2xl md:text-3xl font-bold text-rosewood">00</div>
+            <div class="text-[11px] text-champagne-700">ساعة</div>
+          </div>
+          <div class="bg-softcream border border-champagne-200 rounded-xl p-2 shadow-sm">
+            <div id="cd-minutes" class="font-amiri text-2xl md:text-3xl font-bold text-rosewood">00</div>
+            <div class="text-[11px] text-champagne-700">دقيقة</div>
+          </div>
+          <div class="bg-softcream border border-champagne-200 rounded-xl p-2 shadow-sm">
+            <div id="cd-seconds" class="font-amiri text-2xl md:text-3xl font-bold text-champagne-600">00</div>
+            <div class="text-[11px] text-champagne-700">ثانية</div>
+          </div>
+        </div>
+        <div class="mt-3">
+          <button id="addCalendarBtn" type="button" class="inline-flex items-center gap-1.5 text-xs font-bold text-champagne-700 hover:text-rosewood transition-colors">
+            <i class="fa-regular fa-calendar-plus"></i>
+            <span>إضافة الموعد إلى تقويم هاتفك</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 5. VENUE & GOOGLE MAPS LOCATION            -->
+      <!-- ========================================== -->
+      <div class="bg-champagne-50 border border-champagne-300 rounded-2xl p-5 max-w-md mx-auto space-y-2">
+        <div class="text-champagne-700 text-xs font-bold uppercase tracking-wider">مكان الحفل</div>
+        <p id="venueNameText" class="font-amiri text-2xl font-bold text-rosewood">قاعة السكري</p>
+        <p id="venueAddressText" class="text-sm text-rosewood/80">محرم بك - الإسكندرية</p>
+        <div class="pt-2">
+          <a id="googleMapsBtn" href="https://maps.app.goo.gl/HvgMATBdY3Av9WbP8?g_st=ic" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-champagne-600 hover:bg-champagne-700 text-white font-bold px-6 py-2.5 rounded-full text-xs md:text-sm shadow transition-all">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>الموقع على خرائط جوجل</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 6. WHATSAPP RSVP CONFIRMATION              -->
+      <!-- ========================================== -->
+      <div class="bg-softcream border-2 border-champagne-300 rounded-2xl p-5 max-w-md mx-auto space-y-3 text-right">
+        <div class="text-center">
+          <h3 class="font-amiri text-xl font-bold text-rosewood">تأكيد الحضور والتهنئة</h3>
+          <p class="text-xs text-rosewood/70">يسعدنا تأكيد تشريفكم لنا عبر واتساب</p>
+        </div>
+        <div class="space-y-2.5">
+          <input id="guestNameInput" type="text" placeholder="الاسم الكريم" class="w-full px-4 py-2.5 rounded-xl border border-champagne-300 bg-champagne-50/50 text-sm focus:outline-none focus:border-champagne-600">
+          <div class="grid grid-cols-2 gap-2">
+            <select id="guestStatusInput" class="w-full px-3 py-2.5 rounded-xl border border-champagne-300 bg-champagne-50/50 text-sm focus:outline-none focus:border-champagne-600">
+              <option value="سأتشرف بالحضور بإذن الله">سأحضر بإذن الله</option>
+              <option value="أعتذر لظروف خارجة مع خالص التهاني">أعتذر مع التهنئة</option>
+            </select>
+            <select id="guestCountInput" class="w-full px-3 py-2.5 rounded-xl border border-champagne-300 bg-champagne-50/50 text-sm focus:outline-none focus:border-champagne-600">
+              <option value="فرد واحد">فرد واحد</option>
+              <option value="فردين">فردين</option>
+              <option value="عائلة (3 أفراد)">3 أفراد</option>
+              <option value="عائلة (4 أفراد فأكثر)">4 أفراد فأكثر</option>
+            </select>
+          </div>
+          <textarea id="guestWishInput" rows="2" placeholder="اكتب كلمة تهنئة للعروسين (اختياري)..." class="w-full px-4 py-2 rounded-xl border border-champagne-300 bg-champagne-50/50 text-sm focus:outline-none focus:border-champagne-600"></textarea>
+          <button id="sendRsvpBtn" type="button" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl shadow flex items-center justify-center gap-2 text-sm transition-all">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>إرسال تأكيد الحضور</span>
+          </button>
+          <p id="rsvpNotice" class="hidden text-center text-xs text-rose-600 font-bold"></p>
+        </div>
+      </div>
+
+      <!-- Footer Blessing -->
+      <div class="pt-2 text-champagne-700 font-amiri text-lg">
+        بـارك الله لنـا ولكـم وجمـع بيننـا في خيـر 🤍
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Floating Music Toggle Button -->
+  <button id="musicToggleBtn" type="button" aria-label="تشغيل أو إيقاف الموسيقى" class="hidden fixed bottom-5 left-5 z-40 w-12 h-12 rounded-full bg-champagne-600 hover:bg-champagne-700 text-white shadow-xl flex items-center justify-center transition-all">
+    <i id="musicIcon" class="fa-solid fa-volume-high"></i>
+  </button>
+
+  <!-- ========================================== -->
+  <!-- JAVASCRIPT LOGIC & EASY EDIT CONFIG        -->
+  <!-- ========================================== -->
+  <script>
+    const CONFIG = {
+      groomName: "عبدالظاهر",
+      brideName: "روان",
+      familiesGreeting: "نتشرف بدعوتكم",
+      
+      // Event Date & Time (24 November 2026 at 7:00 PM)
+      eventIsoDate: "2026-11-24T19:00:00",
+      displayDay: "24",
+      displayMonth: "نوفمبر",
+      displayYear: "2026",
+      displayTime: "الثلاثاء، الساعة 7:00 مساءً",
+
+      venueName: "قاعة السكري",
+      venueAddress: "محرم بك - الإسكندرية",
+      mapsUrl: "https://maps.app.goo.gl/HvgMATBdY3Av9WbP8?g_st=ic",
+
+      // WhatsApp Phone Number (without +)
+      whatsappNumber: "201000000000",
+
+      quranVerse: "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً"
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Populate Texts
+      document.title = `دعوة خطوبة ${CONFIG.brideName} و${CONFIG.groomName}`;
+      document.getElementById("groomNameText").innerText = CONFIG.groomName;
+      document.getElementById("brideNameText").innerText = CONFIG.brideName;
+      document.getElementById("familiesText").innerText = CONFIG.familiesGreeting;
+      document.getElementById("quranVerseText").innerText = `"${CONFIG.quranVerse}"`;
+      document.getElementById("targetDay").innerText = CONFIG.displayDay;
+      document.getElementById("targetMonth").innerText = CONFIG.displayMonth;
+      document.getElementById("targetYear").innerText = CONFIG.displayYear;
+      document.getElementById("venueNameText").innerText = CONFIG.venueName;
+      document.getElementById("venueAddressText").innerText = CONFIG.venueAddress;
+      document.getElementById("displayTimeText").innerText = CONFIG.displayTime;
+      document.getElementById("googleMapsBtn").href = CONFIG.mapsUrl;
+
+      // Download Clean HTML File
+      const downloadHtmlBtn = document.getElementById("downloadHtmlBtn");
+      if (downloadHtmlBtn) {
+        downloadHtmlBtn.addEventListener("click", () => {
+          const clone = document.documentElement.cloneNode(true);
+          const bar = clone.querySelector("#helperBar");
+          if (bar) bar.remove();
+          const htmlContent = "<!DOCTYPE html>\n" + clone.outerHTML;
+          const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = "index.html";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+      }
+
+      // Music & Envelope Opening
+      const bgMusic = document.getElementById("bgMusic");
+      const openEnvelopeBtn = document.getElementById("openEnvelopeBtn");
+      const envelopeBox = document.getElementById("envelopeBox");
+      const envelopeScreen = document.getElementById("envelopeScreen");
+      const mainInvitation = document.getElementById("mainInvitation");
+      const musicToggleBtn = document.getElementById("musicToggleBtn");
+      const musicIcon = document.getElementById("musicIcon");
+      let isPlaying = false;
+
+      function playAudio() {
+        if (!bgMusic) return;
+        bgMusic.volume = 0.85;
+        bgMusic.load();
+        bgMusic.play().then(() => {
+          isPlaying = true;
+          musicIcon.className = "fa-solid fa-volume-high";
+        }).catch(() => {});
+      }
+
+      // Attempt autoplay on load
+      playAudio();
+
+      openEnvelopeBtn.addEventListener("click", () => {
+        playAudio();
+        envelopeBox.classList.add("envelope-open");
+        launchHearts();
+        setTimeout(() => {
+          envelopeScreen.classList.add("opacity-0", "pointer-events-none");
+          mainInvitation.classList.remove("hidden");
+          musicToggleBtn.classList.remove("hidden");
+          initScratchCards();
+          setTimeout(() => {
+            mainInvitation.classList.remove("opacity-0");
+            envelopeScreen.classList.add("hidden");
+          }, 50);
+        }, 650);
+      });
+
+      musicToggleBtn.addEventListener("click", () => {
+        if (isPlaying) {
+          bgMusic.pause();
+          isPlaying = false;
+          musicIcon.className = "fa-solid fa-volume-xmark";
+        } else {
+          playAudio();
+        }
+      });
+
+      // Floating Celebration Petals
+      function launchHearts() {
+        const symbols = ["🤍", "✨", "🌸", "💛"];
+        for (let i = 0; i < 18; i++) {
+          const el = document.createElement("div");
+          el.className = "petal text-xl";
+          el.innerText = symbols[i % symbols.length];
+          el.style.left = Math.random() * 100 + "vw";
+          el.style.bottom = "-20px";
+          el.style.animationDuration = (4 + Math.random() * 3) + "s";
+          el.style.animationDelay = (Math.random() * 1.5) + "s";
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 7500);
+        }
+      }
+
+      // Scratch Cards Logic
+      const canvases = document.querySelectorAll(".scratch-canvas");
+      function initScratchCards() {
+        canvases.forEach((canvas) => {
+          const rect = canvas.parentElement.getBoundingClientRect();
+          canvas.width = rect.width || 110;
+          canvas.height = rect.height || 96;
+          const ctx = canvas.getContext("2d");
+
+          const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+          grad.addColorStop(0, "#C5A059");
+          grad.addColorStop(0.5, "#E5C58A");
+          grad.addColorStop(1, "#A7803F");
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          ctx.fillStyle = "#FFFDF9";
+          ctx.font = "bold 13px Tajawal, sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText("امسح هنا", canvas.width / 2, canvas.height / 2 + 4);
+
+          let scratching = false;
+          function scratch(x, y) {
+            ctx.globalCompositeOperation = "destination-out";
+            ctx.beginPath();
+            ctx.arc(x, y, 18, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          canvas.addEventListener("mousedown", () => scratching = true);
+          window.addEventListener("mouseup", () => scratching = false);
+          canvas.addEventListener("mousemove", (e) => {
+            if (!scratching) return;
+            const r = canvas.getBoundingClientRect();
+            scratch(e.clientX - r.left, e.clientY - r.top);
+          });
+
+          canvas.addEventListener("touchstart", (e) => {
+            scratching = true;
+            const r = canvas.getBoundingClientRect();
+            const t = e.touches[0];
+            scratch(t.clientX - r.left, t.clientY - r.top);
+          }, { passive: true });
+
+          canvas.addEventListener("touchmove", (e) => {
+            if (!scratching) return;
+            const r = canvas.getBoundingClientRect();
+            const t = e.touches[0];
+            scratch(t.clientX - r.left, t.clientY - r.top);
+          }, { passive: true });
+        });
+      }
+
+      document.getElementById("revealAllBtn").addEventListener("click", () => {
+        canvases.forEach(c => c.style.display = "none");
+      });
+
+      // Live Countdown Timer
+      const targetTime = new Date(CONFIG.eventIsoDate).getTime();
+      function updateCountdown() {
+        const now = Date.now();
+        const diff = Math.max(0, targetTime - now);
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        document.getElementById("cd-days").innerText = String(days).padStart(2, "0");
+        document.getElementById("cd-hours").innerText = String(hours).padStart(2, "0");
+        document.getElementById("cd-minutes").innerText = String(minutes).padStart(2, "0");
+        document.getElementById("cd-seconds").innerText = String(seconds).padStart(2, "0");
+      }
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      // Add to Google Calendar
+      document.getElementById("addCalendarBtn").addEventListener("click", () => {
+        const title = encodeURIComponent(`حفل خطوبة ${CONFIG.brideName} و${CONFIG.groomName}`);
+        const location = encodeURIComponent(`${CONFIG.venueName} - ${CONFIG.venueAddress}`);
+        const details = encodeURIComponent("نتشرف بحضوركم ومشاركتنا فرحتنا");
+        const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261124T170000Z/20261124T210000Z&details=${details}&location=${location}`;
+        window.open(calUrl, "_blank");
+      });
+
+      // WhatsApp RSVP
+      document.getElementById("sendRsvpBtn").addEventListener("click", () => {
+        const name = document.getElementById("guestNameInput").value.trim();
+        const status = document.getElementById("guestStatusInput").value;
+        const count = document.getElementById("guestCountInput").value;
+        const wish = document.getElementById("guestWishInput").value.trim();
+        const notice = document.getElementById("rsvpNotice");
+
+        if (!name) {
+          notice.innerText = "من فضلك اكتب اسمك الكريم أولاً";
+          notice.classList.remove("hidden");
+          return;
+        }
+        notice.classList.add("hidden");
+
+        let msg = `السلام عليكم، معكم *${name}*\nبخصوص دعوة خطوبة *${CONFIG.brideName} و${CONFIG.groomName}*:\n• الحالة: ${status}\n• العدد: ${count}`;
+        if (wish) msg += `\n• التهنئة: ${wish}`;
+
+        const waUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
+        window.open(waUrl, "_blank");
+      });
+    });
+  </script>
+</body>
+</html>
